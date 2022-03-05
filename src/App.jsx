@@ -20,7 +20,7 @@ function App() {
             setloading(false);
       } catch (error) {
           setloading(false);
-          seterror(error)
+          seterror('An error has occured during the procces to get the products')
       }
   }
 
@@ -33,12 +33,19 @@ function App() {
       {
         loading ?(
           <Spinner />
-        ) : (
+        ) : !loading && !error && (
           <VendingMachine
             error={error}
             productos={products}
           />
         )
+      }
+      {
+        error && (
+          <div className="error-container">
+              <div className="error"><b>Error message: </b>{JSON.stringify(error)}</div>
+          </div>
+          )
       }
     </OrderContext.Provider>
     
