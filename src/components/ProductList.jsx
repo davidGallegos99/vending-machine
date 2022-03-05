@@ -3,7 +3,9 @@ import { Product } from './Product'
 
 export const ProductList = ({
     error,
-    productos
+    productos,
+    showDetails,
+    preparationCondition
 }) => {
 
     
@@ -11,12 +13,26 @@ export const ProductList = ({
   return (
     <div className="product-container">
         {
-            productos.map(producto => (
-                <Product
-                    key={producto.id}
-                    {...producto}
-                />
-            ))
+            !preparationCondition ? ( 
+
+                productos.map((producto,i) => (
+                    <Product
+                        key={`${producto.id}${i}`}
+                        {...producto}
+                        showDetails={showDetails}
+                    />
+                ))
+            ):(
+                productos.map((producto,i) => (
+                    producto.preparation_time > -1 && (
+                        <Product
+                        key={`${producto.id}${i}`}
+                        {...producto}
+                        showDetails={showDetails}
+                    />
+                    )
+                ))
+            )
         }
     </div>
   )

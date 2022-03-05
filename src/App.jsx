@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Spinner } from './components/Spinner';
 import { VendingMachine } from './components/VendingMachine'
+import OrderContext from './Context/OrderContext';
 const { VITE_ENDPOINT:BASE_URL } = import.meta.env;
 
 function App() {
   const [loading, setloading] = useState(true);
   const [products, setproducts] = useState([])
   const [error, seterror] = useState(null)
-
+  const [orderList, setOrderList] = useState([])
+  const [dispatched, setdispatched] = useState([])
 
   const getProducts = async () => {
       try {
@@ -27,7 +29,7 @@ function App() {
   }, []) 
 
   return (
-    <>
+    <OrderContext.Provider value={{orderList, setOrderList,dispatched,setdispatched}}>
       {
         loading ?(
           <Spinner />
@@ -38,7 +40,7 @@ function App() {
           />
         )
       }
-    </>
+    </OrderContext.Provider>
     
   )
 }

@@ -1,14 +1,11 @@
 
 export const FormateDate = (time) => {
-    let minutes = time;
-    let seconds = 0;
-    if(time>=60) {
-        minutes = (time/60).toFixed(1)
-        const decimals = ((time/60).toFixed(1)%1).toFixed(2);
-        seconds = ((decimals*100)*60)/100
-        minutes = `${Math.trunc(minutes)}:${seconds} Minutes`
-        console.log(minutes);
-    }
-    else minutes = `${minutes} Seconds`
-    return minutes
+    let result = Math.floor(time / 60) + ":" + (time % 60 ? time % 60 : '00')
+    return `${result} ${time > 60 ? 'Minutes' : 'Seconds'}`
+}
+
+export const generarId = () => {
+    const random = Math.random().toString(36).substr(2);
+    const fecha = Date.now().toString(36);
+    return random + fecha;
 }
