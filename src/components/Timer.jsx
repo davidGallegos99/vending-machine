@@ -23,6 +23,10 @@ export const Timer = ({
             setmax(max)
             settempo(max)
         }
+        if(tempo < orderContext.orderList[0].preparation_time) {
+            setmax(orderContext.orderList[0].preparation_time)
+            settempo(orderContext.orderList[0].preparation_time)
+        }
         clearInterval(timer)
         settimer(setInterval(() => {
                 settempo(temp => temp-1);
